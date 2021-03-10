@@ -23,7 +23,7 @@ resource "google_compute_instance" "http_server" {
   name         = "${local.network}-apache2-instance"
   machine_type = "f1-micro"
 
-  metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>changes appear here.</p></body></html>' | sudo tee /var/www/html/index.html"
+  metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>this is a change.</p></body></html>' | sudo tee /var/www/html/index.html"
 
   boot_disk {
     initialize_params {
