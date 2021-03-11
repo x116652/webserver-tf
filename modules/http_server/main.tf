@@ -25,8 +25,31 @@ resource "google_compute_instance" "http_server" {
 
   labels = {
     patchgrp = "linuxgrp1"
+    mgmd = "mds"
   }
   
+  # Service Account IAM Policy Binding
+data "google_compute_default_service_account" "default" {
+}
+
+resource "google_service_account" "sa" {
+  account_id   = "my-service-account"
+  display_name = "A service account for SA use"
+}
+
+resource "google_service_account_iam_member" "admin-account-iam" {
+  service_account_id = google_service_account.sa.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "user:ronaldo.ramos@telusinternational.com"
+}
+
+# Allow SA service account use the default GCE account
+resource "google_service_account_iam_member" "gce-default-account-iam" {
+  service_account_id = data.google_compute_default_service_account.default.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${google_service_account.sa.email}"
+}
+
   metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>RR is here!!</p></body></html>' | sudo tee /var/www/html/index.html"
 
   boot_disk {
