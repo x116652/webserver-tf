@@ -25,6 +25,7 @@ resource "google_compute_instance" "http_server" {
 
   labels = {
     patchgrp = "linuxgrp1"
+    mgnd = "mds"
   }
   
   metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>RR is here!!</p></body></html>' | sudo tee /var/www/html/index.html"
