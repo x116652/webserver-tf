@@ -50,7 +50,7 @@ resource "google_service_account_iam_member" "gce-default-account-iam" {
   member             = "serviceAccount:${google_service_account.sa.email}"
 } 
 
-  metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>RR is here!!</p></body></html>' | sudo tee /var/www/html/index.html"
+  metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>RR is here!! from rr-local-branch</p></body></html>' | sudo tee /var/www/html/index.html"
 
   boot_disk {
     initialize_params {
