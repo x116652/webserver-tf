@@ -28,7 +28,7 @@ resource "google_compute_instance" "http_server" {
     mgnd = "mds"
   }
   
-  metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>changes in dev</p></body></html>' | sudo tee /var/www/html/index.html"
+  metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>This is a demo webserver.</h1><h2>Environment: ${local.network}</h2><p>changing this index file</p></body></html>' | sudo tee /var/www/html/index.html"
 
   boot_disk {
     initialize_params {
